@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 namespace Domain;
+=======
+namespace App;
+>>>>>>> 6201c1bc61b930b31cc2acf6623b77175e0ad652
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

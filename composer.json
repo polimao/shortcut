@@ -6,9 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.3.*",
-        "shuber/curl": "dev-master",
-        "overtrue/laravel-pinyin": "~3.0"
+        "laravel/framework": "5.3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -22,7 +20,7 @@
             "database"
         ],
         "psr-4": {
-            "Domain\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -48,11 +46,5 @@
     },
     "config": {
         "preferred-install": "dist"
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
-        }
     }
 }

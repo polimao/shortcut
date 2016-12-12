@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => env('TIME_ZONE', 'Asia/Shanghai'),
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,13 +172,12 @@ return [
         /*
          * Application Service Providers...
          */
-        Domain\Providers\AppServiceProvider::class,
-        Domain\Providers\AuthServiceProvider::class,
-        // Domain\Providers\BroadcastServiceProvider::class,
-        Domain\Providers\EventServiceProvider::class,
-        Domain\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
-        Overtrue\LaravelPinyin\ServiceProvider::class,
     ],
 
     /*
@@ -227,7 +226,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
     ],
 
 ];
