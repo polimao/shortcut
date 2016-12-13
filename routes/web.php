@@ -21,3 +21,5 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/key', 'KeyController@index');
+Route::get('/level', 'levelController@index');

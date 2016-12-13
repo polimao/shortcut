@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShortCut extends Model
+class Key extends Model
 {
     //
 }

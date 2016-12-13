@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableUserSessions extends Migration
+class CreateTableUserLevels extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTableUserSessions extends Migration
      */
     public function up()
     {
-        Schema::create('user_sessions', function (Blueprint $table) {
+        Schema::create('user_levels', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->index();
-            $table->integer('session_id')->index();
+            $table->integer('level_id')->index();
             $table->integer('score');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateTableUserSessions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_sessions');
+        Schema::dropIfExists('user_levels');
     }
 }
