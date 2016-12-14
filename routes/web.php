@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'RingController@index');
+Route::get('/ring/{id}','RingController@show');
 
 Auth::routes();
 

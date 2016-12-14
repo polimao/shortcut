@@ -75,6 +75,7 @@
                         @endif
                     </ul>
                 </div>
+                <example></example>
             </div>
         </nav>
 

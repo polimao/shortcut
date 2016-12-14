@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Shortcut;
+use App\Key;
 
 class HomeController extends Controller
 {
@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $shortcuts = Shortcut::all();
-        return view('home')->with(compact('shortcuts'));
+        $keys = Key::all();
+        return view('home')->with(compact('keys'));
     }
 }

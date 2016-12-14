@@ -15,7 +15,7 @@ class CreateTableKeys extends Migration
     {
         Schema::create('keys', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('level_id')->index();
+            $table->integer('level_id')->index();
             $table->integer('ring_id')->index();
             $table->string('key');
             $table->string('name')->comment('快捷键名称');

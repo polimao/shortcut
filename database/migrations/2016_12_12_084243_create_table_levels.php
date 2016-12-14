@@ -15,6 +15,7 @@ class CreateTableLevels extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('ring_id')->index();
             $table->string('name');
             $table->string('en_name');
             $table->timestamps();
