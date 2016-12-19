@@ -15,7 +15,7 @@ class RingController extends Controller
     public function index()
     {
         $rings = Ring::all();
-        return view('ring')->with(compact('rings'));
+        return view('home')->with(compact('rings'));
     }
 
     /** [show 擂台页] */
@@ -23,7 +23,7 @@ class RingController extends Controller
     {
         $ring = Ring::findOrFail($id);
         $levels = $ring->levels;
-        // dd($levels);
+        dd($ring);
         return view('ring')->with(compact('ring','levels'));
     }
 }

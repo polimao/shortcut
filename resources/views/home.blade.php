@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    @foreach ($keys as $key)
+    @foreach ($rings as $key)
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -28,4 +28,6 @@
     </div>
     @endforeach
 </div>
+
+<example></example>
 @endsection
