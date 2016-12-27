@@ -2,17 +2,44 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h1 class="text-center">{{ cur.name }}</h1>
-                        <textarea class="form-control" rows="3" v-model="command" @keyup.enter="onEnter"></textarea>
+            <div class="col-md-8  col-md-offset-2">
+                <div class="col-xs-2" style="padding: 0px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           说明
+                        </div>
+                        <div class="panel-body">
+                           ↵ - 回车
+                        </div>
                     </div>
                 </div>
+                <div class="col-xs-8">
 
-                <div class="alert alert-info" v-for="item in items">
-                    <h4>{{ item.input }}!</h4>
-                    <strong>{{ item.name }}!</strong> {{ item.key }}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="text-center"><small>{{ cur_index+1 }}.</small>{{ cur.name }}</h3>
+                            <input id="keyTextArea" class="input-lg form-control" rows="3" v-model="command" @keyup.enter="onEnter" :placeholder="cur.key"/>
+                        </div>
+                        <div class="panel-body">
+                            <div :class="['alert',item.status?'alert-info':'alert-danger']" v-for="item in items">
+                                <h4>{{ item.input }}</h4>
+                                <strong>{{ item.name }}!</strong> {{ item.key }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-2"  style="padding: 0px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           统计
+                        </div>
+                        <div class="panel-body">
+                           <p>新：9</p>
+                           <p>回顾：9</p>
+                           <p>完成：9</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,74 +48,79 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('test Component mounted.')
-            this.cur = this.keys[this.cur_index]
-            console.log(this.cur,1)
+        mounted: function() {
+            console.log('mounted')
+            this.$http.jsonp('http://shortcut.com/api/test', {}, {
+                headers: {
+
+                },
+                emulateJSON: true
+            }).then(function(response) {
+              // 这里是处理正确的回调
+                this.articles = response.data.key;
+                console.log(response.data.key);
+                // this.articles = response.data["subjects"] 也可以
+
+            }, function(response) {
+                // 这里是处理错误的回调
+                console.log(response)
+            });
         },
         data() {
             return {
-                    author: "微信公众号 jinkey-love",
-                    articles : '',
                     command : '',
                     cur_index : 0,
                     cur : [],
                     keys: [
                         {
                             'name' : '全选',
-                            'key' : 'ctrl+a',
+                            'key' : 'ctrla',
                         },
                         {
                             'name' : '复制',
-                            'key' : 'ctrl+c',
+                            'key' : 'ctrlc',
                         },
                         {
                             'name' : '粘贴',
-                            'key' : 'ctrl+v',
+                            'key' : 'ctrlv',
                         }
                     ],
                     items : []
             }
         },
         methods:{
-            finish(command){
-                this.command = ''
-                alert(command)
-            },
             onEnter(){
-                this.cur = this.keys[this.cur_index]
+
                 this.items.unshift({
                     key: this.cur.key,
                     name: this.cur.name,
-                    input: this.command
+                    input: this.command,
+                    status: $.trim(this.command) == this.cur.key
                 })
+
+
+                this.cur = this.keys[this.cur_index]
+
                 this.command = ''
                 this.cur_index +=1
                 if(!this.keys[this.cur_index])
-                    alert('闯关结束')
-                else
-                    this.cur = this.keys[this.cur_index]
+                    this.cur_index = 0
             }
         },
-        // mounted: function() {
-        //     this.$http.jsonp('http://shortcut.com/api/test', {}, {
-        //         headers: {
-
-        //         },
-        //         emulateJSON: true
-        //     }).then(function(response) {
-        //       // 这里是处理正确的回调
-        //         this.articles = response.data.key;
-        //         console.log(response.data.key);
-        //         // this.articles = response.data["subjects"] 也可以
-
-        //     }, function(response) {
-        //         // 这里是处理错误的回调
-        //         console.log(response)
-        //     });
-        // }
+        created()
+        {
+            console.log('created')
+            this.cur = this.keys[this.cur_index]
+        }
     }
 
 
 
 </script>
+<style>
+    #keyTextArea{
+        font-size: 30px;
+        /*padding: 20px 0;*/
+        height: 100px;
+    }
+</style>
