@@ -2,11 +2,41 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8  col-md-offset-2">
+            <div class="col-md-10  col-md-offset-1">
                 <div class="col-xs-2" style="padding: 0px">
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           说明
+                           结果提示
+                        </div>
+                        <div class="panel-body">
+
+
+
+                        <input type="radio" id="hide" value="hide" v-model="capion">
+                        <label for="hide"> 隐藏</label>
+                        <br>
+                        <input type="radio" id="display" value="display" v-model="capion">
+                        <label for="display"> 显示</label>
+                        <br>
+                        <input type="radio" id="delay" value="delay" v-model="capion">
+                        <label for="delay"> 延迟</label>
+                        <br>
+                        <span>Picked: {{ capion }}</span>
+
+
+                        <hr/>
+                           <div class="btn-group">
+                               <button class="btn btn-default btn-xs" :class="{active: capion=='hide'}">隐藏</button>
+                                <button class="btn btn-default btn-xs" :class="{active: capion=='display'}">显示</button>
+                                <button class="btn btn-default btn-xs"  :class="{active: capion=='delay'}">延迟</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           按键说明
                         </div>
                         <div class="panel-body">
                            ↵ - 回车
@@ -17,7 +47,8 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="text-center"><small>{{ cur_index+1 }}.</small>{{ cur.name }}</h3>
+                            <h3 class="text-center">
+                           <!--  <small>{{ cur_index+1 }}.</small> -->{{ cur.name }}</h3>
                             <input id="keyTextArea" class="input-lg form-control" rows="3" v-model="command" @keyup.enter="onEnter" :placeholder="cur.key"/>
                         </div>
                         <div class="panel-body">
@@ -69,6 +100,7 @@
         data() {
             return {
                     command : '',
+                    capion: 'hide',
                     cur_index : 0,
                     cur : [],
                     keys: [
