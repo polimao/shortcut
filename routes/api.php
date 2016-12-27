@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +18,7 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/test', function (Request $request) {
-    return 123;
+    return Response::json(array('key' => 'test vue router'))->setCallback($request->callback);
 });
 
 
