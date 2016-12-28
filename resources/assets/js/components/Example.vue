@@ -26,9 +26,9 @@
 
                             <hr/> -->
                            <div class="btn-group">
-                               <button class="btn btn-default btn-xs" :class="{active: capion=='hide'}">隐藏</button>
-                                <button class="btn btn-default btn-xs" :class="{active: capion=='display'}">显示</button>
-                                <button class="btn btn-default btn-xs"  :class="{active: capion=='delay'}">延迟</button>
+                               <button class="btn btn-default btn-xs" :class="{active: capion=='hide'}" @click="capion = 'hide'" >隐藏</button>
+                                <button class="btn btn-default btn-xs" :class="{active: capion=='show'}" @click="capion = 'show'" >显示</button>
+                                <button class="btn btn-default btn-xs"  :class="{active: capion=='delay'}" @click="capion = 'delay'" >延迟</button>
                             </div>
                         </div>
                     </div>
@@ -48,12 +48,12 @@
                         <div class="panel-heading">
                             <p class="text-center h3">
                            <!--  <small>{{ cur_index+1 }}.</small> -->{{ cur.name }}</p>
-                            <input id="keyTextArea" class="input-lg form-control" rows="3" v-model="command" @keyup.enter="onEnter" :placeholder="cur.key"/>
+                            <input id="keyTextArea" class="input-lg form-control" rows="3" v-model.trim="command" @keyup.enter="onEnter" :placeholder="getPlaceHolder()"/>
                         </div>
                         <div class="panel-body">
                             <div class="resultAlert" :class="['alert',item.status?'alert-success':'alert-danger']" v-for="item in items">
                                 <h4>{{ item.input }}</h4>
-                                <strong>{{ item.name }}!</strong>
+                                <strong>{{ item.name }}</strong>
                                 <h4 style="color: #999;"><i>{{ item.key }}</i></h4>
                             </div>
                         </div>
@@ -102,16 +102,11 @@
         data() {
             return {
                     command : '',
-                    capion: 'hide',
+                    capion: 'show',
                     cur_index : 0,
                     new_cnt : 0,
                     review_cnt : 0,
                     completed_cnt : 0,
-                    capion_list: [
-                          { text: '隐藏', value: 'hide' },
-                          { text: '显示', value: 'show' },
-                          { text: '延时', value: 'delay' }
-                        ],
                     cur : [],
                     items : []
             }
@@ -122,8 +117,8 @@
                 this.items.unshift({
                     key: this.cur.key,
                     name: this.cur.name,
-                    input: this.command,
-                    status: $.trim(this.command) == this.cur.key
+                    input: this.command + '↵',
+                    status: this.command == this.cur.key
                 })
 
                 this.command = ''
@@ -137,6 +132,17 @@
 
                 if(this.completed_cnt < this.keys.length)
                     this.completed_cnt +=1;
+            },
+            getPlaceHolder(){
+                if(this.capion == 'hide')
+                    return '';
+                else if(this.capion == 'show')
+                    return this.cur.key;
+                else{
+                    setTimeout(function(){
+                        // return this.cur.key;
+                    },1000);
+                }
             }
         },
         created()
@@ -154,6 +160,18 @@
         font-size: 30px;
         font-family: 'Inconsolata', 'courier';
         height: 100px;
+
+    }
+
+    input:placeholder {
+        color: red;
+
+    }
+
+    input::-webkit-input-placeholder {
+
+        transition: opacity 4s ease-in-out;
+        opacity: 0;
     }
 
     .resultAlert{
