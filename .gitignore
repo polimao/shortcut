@@ -3,4 +3,4 @@ vendor/
 sftp-config.json
 node_modules/
 gulp
-public/
+public/js/app.js
