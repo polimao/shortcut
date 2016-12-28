@@ -23,6 +23,8 @@ class LevelController extends Controller
     {
         $level = Level::find($level_id);
         $keys = $level->keys;
-        return \Response::json(['keys' => $keys])->setCallback($request->callback);
+        $new_cnt = count($keys);
+        $review_cnt = 0;
+        return \Response::json(compact('keys','new_cnt','review_cnt'))->setCallback($request->callback);
     }
 }

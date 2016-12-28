@@ -12,20 +12,19 @@
                         <div class="panel-body">
 
 
+                           <!--  <input type="radio" id="hide" value="hide" v-model="capion">
+                            <label for="hide"> 隐藏</label>
+                            <br>
+                            <input type="radio" id="display" value="display" v-model="capion">
+                            <label for="display"> 显示</label>
+                            <br>
+                            <input type="radio" id="delay" value="delay" v-model="capion">
+                            <label for="delay"> 延迟</label>
+                            <br>
+                            <span>Picked: {{ capion }}</span>
 
-                        <input type="radio" id="hide" value="hide" v-model="capion">
-                        <label for="hide"> 隐藏</label>
-                        <br>
-                        <input type="radio" id="display" value="display" v-model="capion">
-                        <label for="display"> 显示</label>
-                        <br>
-                        <input type="radio" id="delay" value="delay" v-model="capion">
-                        <label for="delay"> 延迟</label>
-                        <br>
-                        <span>Picked: {{ capion }}</span>
 
-
-                        <hr/>
+                            <hr/> -->
                            <div class="btn-group">
                                <button class="btn btn-default btn-xs" :class="{active: capion=='hide'}">隐藏</button>
                                 <button class="btn btn-default btn-xs" :class="{active: capion=='display'}">显示</button>
@@ -47,14 +46,15 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="text-center">
-                           <!--  <small>{{ cur_index+1 }}.</small> -->{{ cur.name }}</h3>
+                            <p class="text-center h3">
+                           <!--  <small>{{ cur_index+1 }}.</small> -->{{ cur.name }}</p>
                             <input id="keyTextArea" class="input-lg form-control" rows="3" v-model="command" @keyup.enter="onEnter" :placeholder="cur.key"/>
                         </div>
                         <div class="panel-body">
-                            <div :class="['alert',item.status?'alert-success':'alert-danger']" v-for="item in items">
+                            <div class="resultAlert" :class="['alert',item.status?'alert-success':'alert-danger']" v-for="item in items">
                                 <h4>{{ item.input }}</h4>
-                                <strong>{{ item.name }}!</strong> {{ item.key }}
+                                <strong>{{ item.name }}!</strong>
+                                <h4 style="color: #999;"><i>{{ item.key }}</i></h4>
                             </div>
                         </div>
                     </div>
@@ -66,9 +66,9 @@
                            统计
                         </div>
                         <div class="panel-body">
-                           <p>新：9</p>
-                           <p>回顾：9</p>
-                           <p>完成：9</p>
+                           <p>新增：{{ new_cnt }}</p>
+                           <p>回顾：{{ review_cnt }}</p>
+                           <p>完成：{{ completed_cnt }}</p>
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,11 @@
                 emulateJSON: true
             }).then(function(response) {
               // 这里是处理正确的回调
-                this.keys = response.data.keys;
-                this.cur = this.keys[this.cur_index]
-                // this.articles = response.data["subjects"] 也可以
+                this.keys       = response.data.keys;
+                this.new_cnt    = response.data.new_cnt;
+                this.review_cnt = response.data.review_cnt;
+
+                this.cur        = this.keys[this.cur_index]
 
             }, function(response) {
                 // 这里是处理错误的回调
@@ -102,6 +104,14 @@
                     command : '',
                     capion: 'hide',
                     cur_index : 0,
+                    new_cnt : 0,
+                    review_cnt : 0,
+                    completed_cnt : 0,
+                    capion_list: [
+                          { text: '隐藏', value: 'hide' },
+                          { text: '显示', value: 'show' },
+                          { text: '延时', value: 'delay' }
+                        ],
                     cur : [],
                     items : []
             }
@@ -116,14 +126,17 @@
                     status: $.trim(this.command) == this.cur.key
                 })
 
-
                 this.command = ''
                 this.cur_index +=1
 
+                if(!this.keys[this.cur_index]){
+                    this.cur_index = 0
+                }
+
                 this.cur = this.keys[this.cur_index]
 
-                if(!this.keys[this.cur_index])
-                    this.cur_index = 0
+                if(this.completed_cnt < this.keys.length)
+                    this.completed_cnt +=1;
             }
         },
         created()
@@ -139,7 +152,11 @@
 <style>
     #keyTextArea{
         font-size: 30px;
-        /*padding: 20px 0;*/
+        font-family: 'Inconsolata', 'courier';
         height: 100px;
+    }
+
+    .resultAlert{
+        font-family: 'Inconsolata', 'courier';
     }
 </style>
