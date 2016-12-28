@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
-Route::get('/', 'RingController@index');
+// Route::get('/', 'RingController@index');
 Route::get('/ring/{id}','RingController@show');
 
 Auth::routes();

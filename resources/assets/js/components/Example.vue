@@ -10,22 +10,8 @@
                            结果提示
                         </div>
                         <div class="panel-body">
-
-
-                           <!--  <input type="radio" id="hide" value="hide" v-model="capion">
-                            <label for="hide"> 隐藏</label>
-                            <br>
-                            <input type="radio" id="display" value="display" v-model="capion">
-                            <label for="display"> 显示</label>
-                            <br>
-                            <input type="radio" id="delay" value="delay" v-model="capion">
-                            <label for="delay"> 延迟</label>
-                            <br>
-                            <span>Picked: {{ capion }}</span>
-
-
-                            <hr/> -->
                            <div class="btn-group">
+
                                <button class="btn btn-default btn-xs" :class="{active: capion=='hide'}" @click="capion = 'hide'" >隐藏</button>
                                 <button class="btn btn-default btn-xs" :class="{active: capion=='show'}" @click="capion = 'show'" >显示</button>
                                 <button class="btn btn-default btn-xs"  :class="{active: capion=='delay'}" @click="capion = 'delay'" >延迟</button>
@@ -163,7 +149,7 @@
 
     }
 
-    input:placeholder {
+/*    input:placeholder {
         color: red;
 
     }
@@ -172,7 +158,7 @@
 
         transition: opacity 4s ease-in-out;
         opacity: 0;
-    }
+    }*/
 
     .resultAlert{
         font-family: 'Inconsolata', 'courier';
