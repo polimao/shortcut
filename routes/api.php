@@ -21,6 +21,7 @@ Route::get('/test', function (Request $request) {
     return Response::json(array('key' => 'test vue router'))->setCallback($request->callback);
 });
 
+Route::get('/{level_id}/keys', 'LevelController@getKeys');
 
 
 // // 认证路由...

@@ -52,7 +52,7 @@
                             <input id="keyTextArea" class="input-lg form-control" rows="3" v-model="command" @keyup.enter="onEnter" :placeholder="cur.key"/>
                         </div>
                         <div class="panel-body">
-                            <div :class="['alert',item.status?'alert-info':'alert-danger']" v-for="item in items">
+                            <div :class="['alert',item.status?'alert-success':'alert-danger']" v-for="item in items">
                                 <h4>{{ item.input }}</h4>
                                 <strong>{{ item.name }}!</strong> {{ item.key }}
                             </div>
@@ -81,15 +81,15 @@
     export default {
         mounted: function() {
             console.log('mounted')
-            this.$http.jsonp('http://shortcut.com/api/test', {}, {
+            this.$http.jsonp('http://shortcut.com/api/1/keys', {}, {
                 headers: {
 
                 },
                 emulateJSON: true
             }).then(function(response) {
               // 这里是处理正确的回调
-                this.articles = response.data.key;
-                console.log(response.data.key);
+                this.keys = response.data.keys;
+                this.cur = this.keys[this.cur_index]
                 // this.articles = response.data["subjects"] 也可以
 
             }, function(response) {
@@ -103,20 +103,6 @@
                     capion: 'hide',
                     cur_index : 0,
                     cur : [],
-                    keys: [
-                        {
-                            'name' : '全选',
-                            'key' : 'ctrla',
-                        },
-                        {
-                            'name' : '复制',
-                            'key' : 'ctrlc',
-                        },
-                        {
-                            'name' : '粘贴',
-                            'key' : 'ctrlv',
-                        }
-                    ],
                     items : []
             }
         },
@@ -131,10 +117,11 @@
                 })
 
 
-                this.cur = this.keys[this.cur_index]
-
                 this.command = ''
                 this.cur_index +=1
+
+                this.cur = this.keys[this.cur_index]
+
                 if(!this.keys[this.cur_index])
                     this.cur_index = 0
             }
@@ -142,7 +129,7 @@
         created()
         {
             console.log('created')
-            this.cur = this.keys[this.cur_index]
+
         }
     }
 
