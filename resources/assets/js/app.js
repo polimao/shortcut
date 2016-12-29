@@ -14,8 +14,36 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('MainLayout', require('./layouts/Main.vue'));
+Vue.component('VLink', require('./components/VLink.vue'));
+routes = require('./routes');
+
+// const app = new Vue({
+//     el: '#app'
+// });
+routes = routes.default
+console.log(routes.default);
 
 const app = new Vue({
-    el: '#app'
-});
+  el: '#app',
+  data: {
+    currentRoute: window.location.pathname
+  },
+  computed: {
+    ViewComponent () {
+      const matchingView = routes[this.currentRoute]
 
+      console.log(matchingView,routes,routes[this.currentRoute])
+      return matchingView
+        ? require('./pages/' + matchingView + '.vue')
+        : require('./pages/404.vue')
+    }
+  },
+  render (h) {
+    return h(this.ViewComponent)
+  }
+})
+
+window.addEventListener('popstate', () => {
+  app.currentRoute = window.location.pathname
+})

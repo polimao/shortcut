@@ -28,6 +28,6 @@
     </div>
     @endforeach
 </div> --}}
-
+<v-link href="/about">About</v-link>
 <example></example>
 @endsection

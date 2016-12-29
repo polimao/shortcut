@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::get('/{vue?}', function () {
     return view('home');
-});
+})->where('vue', '[\/\w\.-]*');
 
 
 // Route::get('/', 'RingController@index');
