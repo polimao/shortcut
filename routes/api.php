@@ -22,6 +22,8 @@ Route::get('/test', function (Request $request) {
 });
 
 Route::get('/{level_id}/keys', 'LevelController@getKeys');
+Route::get('/{ring_id}/levels', 'RingController@getLevels');
+Route::get('/rings', 'RingController@index');
 
 
 // // 认证路由...

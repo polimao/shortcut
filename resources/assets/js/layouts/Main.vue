@@ -13,9 +13,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="/">
-                    ShortCut
-                </a>
+                <router-link :to="{ name: 'home' }"  class="navbar-brand">ShortCut</router-link>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -61,12 +59,20 @@
 </template>
 
 <script>
-  // import VLink from '../components/VLink.vue'
 
   export default {
-    // components: {
-    //   VLink
-    // }
+
+    created()
+    {
+        console.log('man created')
+        console.log('Current route name: ' + this.$route.name)
+        console.log('当前路径：' + this.$route.path)
+        console.log('当前参数：' +  JSON.stringify(this.$route.params))
+        console.log('路由名称：' + this.$route.name)
+        console.log('路由查询参数：' +  JSON.stringify(this.$route.query))
+        console.log('路由匹配项：' +  JSON.stringify(this.$route.matched))
+
+    }
   }
 </script>
 

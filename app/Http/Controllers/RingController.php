@@ -12,10 +12,10 @@ class RingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $rings = Ring::all();
-        return view('home')->with(compact('rings'));
+        return \Response::json(compact('rings'))->setCallback($request->callback);
     }
 
     /** [show 擂台页] */
@@ -25,5 +25,12 @@ class RingController extends Controller
         $levels = $ring->levels;
         dd($ring);
         return view('ring')->with(compact('ring','levels'));
+    }
+
+    public function getLevels(Request $request, $ring_id)
+    {
+        $ring = Ring::find($ring_id);
+        $levels = $ring->levels;
+        return \Response::json(compact('levels'))->setCallback($request->callback);
     }
 }
