@@ -1,4 +1,5 @@
 export default {
   '/': '404',
-  '/about': 'About'
+  '/about': 'About',
+  '/key': 'Key'
 }

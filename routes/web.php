@@ -16,7 +16,7 @@
 // });
 
 Route::get('/{vue?}', function () {
-    return view('home');
+    return view('admin');
 })->where('vue', '[\/\w\.-]*');
 
 

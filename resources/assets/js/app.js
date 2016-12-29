@@ -13,7 +13,6 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
 Vue.component('MainLayout', require('./layouts/Main.vue'));
 Vue.component('VLink', require('./components/VLink.vue'));
 routes = require('./routes');

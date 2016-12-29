@@ -2,6 +2,8 @@
   <main-layout>
     <p>Page not found</p>
   </main-layout>
+
+  123
 </template>
 
 <script>
