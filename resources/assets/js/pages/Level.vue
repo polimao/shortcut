@@ -26,7 +26,9 @@
     export default {
         mounted: function() {
             console.log('mounted')
-            this.$http.jsonp('http://shortcut.com/api/1/levels', {}, {
+            let ring_id = this.$route.params.id;
+
+            this.$http.jsonp('http://shortcut.com/api/' + ring_id + '/levels', {}, {
                 headers: {
 
                 },

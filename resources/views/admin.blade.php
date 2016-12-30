@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
+{{--     <link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
+ --}}
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -22,7 +23,10 @@
 </head>
 <body>
 <div id="app">
-  <router-view class="view"></router-view>
+    {{-- <transition name="custom-classes-transition" mode="out-in" enter-active-class="animated tada" --}}
+    {{-- leave-active-class="animated bounceOutRight"> --}}
+        <router-view class="view"></router-view>
+    {{-- </transition> --}}
 </div>
 
     <!-- Scripts -->

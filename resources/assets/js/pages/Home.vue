@@ -4,56 +4,19 @@
         <div class="row">
             <div class="col-md-10  col-md-offset-1" style="text-align: center;">
 
-            <!-- <a href="" class="btn btn-primary btn-inverse btn-homepage" v-for="ring in rings">{{ ring.name }}</a> -->
+            <transition-group name="list-complete" tag="p">
+                <span class="list-complete-item" :key="ring" v-for="ring in rings">
+                <router-link
+                    :to="{ name: 'level', params: { id: ring.id }}"
+                    class="btn btn-default btn-inverse btn-homepage"
+                    >{{ ring.name }}</router-link>
 
-            <router-link
-                :to="{ name: 'level', params: { id: ring.id }}"
-                v-for="ring in rings"
-                class="btn btn-primary btn-inverse btn-homepage">{{ ring.name }}</router-link>
+                </span>
+              </transition-group>
+
+              <button @click="onEnter"></button>
 
 
-                <!-- <div class="col-xs-2" style="padding: 0px">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           结果提示
-                        </div>
-                        <div class="panel-body">
-                           <div class="btn-group">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           按键说明
-                        </div>
-                        <div class="panel-body">
-                           ↵ - 回车
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-8">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                        </div>
-                        <div class="panel-body">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-xs-2"  style="padding: 0px">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           统计
-                        </div>
-                        <div class="panel-body">
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </main-layout>
@@ -76,6 +39,11 @@
                 // 这里是处理错误的回调
                 console.log(response)
             });
+
+            this.timer = setInterval(function(){
+                console.log('--------------')
+                this.rings = _.shuffle(this.rings)
+            },1300)
         },
         data() {
             return {
@@ -85,13 +53,20 @@
             }
         },
         methods:{
-
+            onEnter()
+            {
+                this.rings = _.shuffle(this.rings)
+                console.log(23)
+            }
         },
         created()
         {
             console.log('created')
 
-        }
+        },
+        beforeDestroy () {
+            clearInterval(this.timer)
+        },
     }
 
 
@@ -110,5 +85,20 @@
     /*color: #ffffff;*/
     /*background-color: #404041;*/
     /*border-color: #333334;*/
+}
+
+
+
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-active {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 </style>

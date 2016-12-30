@@ -67,8 +67,9 @@
 <script>
     export default {
         mounted: function() {
+            let level_id = this.$route.params.id;
             console.log('mounted')
-            this.$http.jsonp('http://shortcut.com/api/1/keys', {}, {
+            this.$http.jsonp('http://shortcut.com/api/' + level_id + '/keys', {}, {
                 headers: {
 
                 },
@@ -76,6 +77,9 @@
             }).then(function(response) {
               // 这里是处理正确的回调
                 this.keys       = response.data.keys;
+                if(!this.keys.length){
+                    this.$router.push('/');
+                }
                 this.new_cnt    = response.data.new_cnt;
                 this.review_cnt = response.data.review_cnt;
 
@@ -95,7 +99,8 @@
                     review_cnt : 0,
                     completed_cnt : 0,
                     cur : [],
-                    items : []
+                    items : [],
+                    timer : 0
             }
         },
         methods:{
@@ -119,16 +124,29 @@
 
                 if(this.completed_cnt < this.keys.length)
                     this.completed_cnt +=1;
+
+                if(this.capion == 'delay'){
+                    $('#keyTextArea').removeAttr('placeholder');
+                }
+
             },
             getPlaceHolder(){
+                var holder = this.cur.key;
+
                 if(this.capion == 'hide')
                     return '';
                 else if(this.capion == 'show')
-                    return this.cur.key;
-                else{
-                    setTimeout(function(){
-                        // return this.cur.key;
-                    },1000);
+                    return holder;
+                else if(this.capion == 'delay'){
+                    // if(this.timer)clearTimeout(this.timer);
+                    this.timer = setTimeout(function(){
+                        // $('#keyTextArea').removeAttr('placeholder');
+                        $('#keyTextArea').attr('placeholder',holder);
+
+                        console.log('--------------- ' + holder);
+                    },2000);
+
+                    return '';
                 }
             }
         },
