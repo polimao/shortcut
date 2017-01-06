@@ -69,7 +69,7 @@
         mounted: function() {
             let level_id = this.$route.params.id;
             console.log('mounted')
-            this.$http.jsonp('http://shortcut.com/api/' + level_id + '/keys', {}, {
+            this.$http.jsonp('http://123.207.25.17/api/' + level_id + '/keys', {}, {
                 headers: {
 
                 },

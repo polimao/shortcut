@@ -28,7 +28,7 @@
             console.log('mounted')
             let ring_id = this.$route.params.id;
 
-            this.$http.jsonp('http://shortcut.com/api/' + ring_id + '/levels', {}, {
+            this.$http.jsonp('http://123.207.25.17/api/' + ring_id + '/levels', {}, {
                 headers: {
 
                 },

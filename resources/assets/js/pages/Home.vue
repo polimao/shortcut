@@ -26,7 +26,7 @@
     export default {
         mounted: function() {
             console.log('mounted')
-            this.$http.jsonp('http://shortcut.com/api/rings', {}, {
+            this.$http.jsonp('http://123.207.25.17/api/rings', {}, {
                 headers: {
 
                 },
